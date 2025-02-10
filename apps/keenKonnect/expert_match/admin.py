@@ -1,7 +1,7 @@
-# apps/keenKonnect/expert_match/admin.py
+# apps/keenkonnect/expert_match/admin.py
 
 from django.contrib import admin
-from keenKonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
+from keenkonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
 
 @admin.register(ExpertMatchRequest)
 class ExpertMatchRequestAdmin(admin.ModelAdmin):

@@ -76,7 +76,7 @@ class ConfigurationChangeLog(BaseModel):
         help_text="New configuration value."
     )
     changed_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True, blank=True,
         help_text="User who made the change."

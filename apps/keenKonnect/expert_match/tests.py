@@ -1,4 +1,4 @@
-# apps/keenKonnect/expert_match/tests.py
+# apps/keenkonnect/expert_match/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,9 +8,9 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 # Importation des modèles du module expert_match
-from keenKonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
+from keenkonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
 # Importation du modèle Project pour l'association (issu du module projects)
-from keenKonnect.projects.models import Project
+from keenkonnect.projects.models import Project
 
 User = get_user_model()
 

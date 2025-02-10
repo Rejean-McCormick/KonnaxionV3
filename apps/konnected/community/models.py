@@ -1,5 +1,5 @@
 """
-File: apps/konnected/konnected_community/models.py
+File: apps/konnected/community/models.py
 
 This module provides a forum for educational Q&A and discussions.
 It includes models for discussion threads and nested comments.
@@ -15,7 +15,7 @@ class DiscussionThread(BaseModel):
     title = models.CharField(max_length=255, help_text="Title of the discussion thread.")
     content = models.TextField(help_text="Initial content or description of the thread.")
     author = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="discussion_threads",
         help_text="User who started the discussion."
@@ -43,7 +43,7 @@ class Comment(BaseModel):
         help_text="Parent comment if this is a reply; null if top-level."
     )
     author = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="comments",
         help_text="User who posted the comment."

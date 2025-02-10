@@ -20,9 +20,9 @@ env = environ.Env()
 
 # This flag controls whether to load .env files.
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
+#if READ_DOT_ENV_FILE:
     # Loads environment variables from '.envs/.local/.django' relative to BASE_DIR.
-    env.read_env(os.path.join(BASE_DIR, ".envs", ".local", ".django"))
+env.read_env(os.path.join(BASE_DIR, ".envs", ".local", ".django"))
 
 # ------------------------------------------------------------------------------
 # GENERAL
@@ -103,15 +103,15 @@ LOCAL_APPS = [
     "konnected.community",
     "konnected.offline",
 
-    "keenKonnect.projects",
-    "keenKonnect.gap_analysis",
-    "keenKonnect.expert_match",
-    "keenKonnect.team_formation",
-    "keenKonnect.collab_spaces",
-    "keenKonnect.knowledge_hub",
+    "keenkonnect.projects",
+    "keenkonnect.gap_analysis",
+    "keenkonnect.expert_match",
+    "keenkonnect.team_formation",
+    "keenkonnect.collab_spaces",
+    "keenkonnect.knowledge_hub",
 
     "ethikos.home",
-    "ethikos.arena",
+    "ethikos.debate_arena",
     "ethikos.stats",
     "ethikos.knowledge_base",
     "ethikos.prioritization",
@@ -140,7 +140,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # Update custom user model to point to our new model in the konnaxion_core app.
-AUTH_USER_MODEL = "konnaxion.core.CustomUser"
+AUTH_USER_MODEL = "konnaxion_core.CustomUser"
 LOGIN_REDIRECT_URL = "users:redirect"  # Adjust if needed.
 LOGIN_URL = "account_login"
 

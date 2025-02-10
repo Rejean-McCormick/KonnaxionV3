@@ -1,5 +1,5 @@
 """
-File: apps/konnected/konnected_foundation/models.py
+File: apps/konnected/foundation/models.py
 
 This module manages the core educational content (“Knowledge Units”).
 It includes models for storing rich text, multimedia, and resource attachments,

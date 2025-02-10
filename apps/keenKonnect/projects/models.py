@@ -1,5 +1,5 @@
 """
-File: apps/keenKonnect/keenKonnect_projects/models.py
+File: apps/keenkonnectprojects/models.py
 
 This module manages the project lifecycle. It includes models for Projects,
 Milestones, and Tasks for project collaboration and progress tracking.
@@ -15,7 +15,7 @@ class Project(BaseModel):
     title = models.CharField(max_length=255, help_text="Title of the project.")
     description = models.TextField(help_text="Detailed description of the project.")
     owner = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="owned_projects",
@@ -60,7 +60,7 @@ class Task(BaseModel):
     title = models.CharField(max_length=255, help_text="Task title.")
     description = models.TextField(null=True, blank=True, help_text="Task description.")
     assigned_to = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

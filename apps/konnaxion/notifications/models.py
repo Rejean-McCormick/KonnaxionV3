@@ -18,14 +18,14 @@ class Notification(BaseModel):
         ('error', 'Error'),
     ]
     sender = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True, blank=True,
         related_name='sent_notifications',
         help_text="User who triggered the notification."
     )
     recipient = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name='notifications',
         help_text="User who receives the notification."

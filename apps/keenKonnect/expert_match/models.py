@@ -1,5 +1,5 @@
 """
-File: apps/keenKonnect/keenKonnect_expert_match/models.py
+File: apps/keenkonnectexpert_match/models.py
 
 This module defines models for matching projects with experts.
 It includes models for match requests, candidate profiles, and compatibility scoring.
@@ -13,13 +13,13 @@ class ExpertMatchRequest(BaseModel):
     Represents a request for expert matching for a project.
     """
     project = models.ForeignKey(
-        "keenKonnect.keenKonnect_projects.Project",
+        "projects.Project",
         on_delete=models.CASCADE,
         related_name="expert_match_requests",
         help_text="Project needing expert matching."
     )
     requested_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="expert_match_requests",
@@ -37,7 +37,7 @@ class CandidateProfile(BaseModel):
     Represents a candidate's profile for expert matching.
     """
     user = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="candidate_profiles",
         help_text="User associated with this candidate profile."

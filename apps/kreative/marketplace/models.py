@@ -14,7 +14,7 @@ class ArtistProfile(BaseModel):
     Represents an artist's profile containing portfolio and biography details.
     """
     user = models.OneToOneField(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="artist_profile",
         help_text="Associated user for the artist profile"
@@ -40,7 +40,7 @@ class Commission(BaseModel):
     description = models.TextField(help_text="Details of the commission requirements")
     budget = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Budget for the commission")
     requested_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="commissions_requested",
         help_text="User requesting the commission"

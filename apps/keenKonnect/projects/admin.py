@@ -1,7 +1,7 @@
-# apps/keenKonnect/projects/admin.py
+# apps/keenkonnect/projects/admin.py
 
 from django.contrib import admin
-from keenKonnect.projects.models import Project, Milestone, Task
+from keenkonnect.projects.models import Project, Milestone, Task
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):

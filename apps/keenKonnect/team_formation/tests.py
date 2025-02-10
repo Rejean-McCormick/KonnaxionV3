@@ -1,4 +1,4 @@
-# apps/keenKonnect/team_formation/tests.py
+# apps/keenkonnect/team_formation/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,9 +8,9 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 # Importer les modèles du module team_formation
-from keenKonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
+from keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
 # On suppose que TeamFormationRequest est lié à un projet du module projects
-from keenKonnect.projects.models import Project
+from keenkonnect.projects.models import Project
 
 User = get_user_model()
 

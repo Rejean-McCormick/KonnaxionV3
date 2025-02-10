@@ -13,7 +13,7 @@ class DebatePrioritization(BaseModel):
     Ranks a debate session based on computed criteria.
     """
     debate_session = models.ForeignKey(
-        "ethikos.debate_arena.DebateSession",
+        "debate_arena.DebateSession",
         on_delete=models.CASCADE,
         related_name="prioritizations",
         help_text="Debate session being ranked"

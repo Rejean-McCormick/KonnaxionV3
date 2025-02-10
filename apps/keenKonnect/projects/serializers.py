@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenKonnect.projects.models import Project, Milestone, Task
+from apps.keenkonnect.projects.models import Project, Milestone, Task
 
 class ProjectSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)

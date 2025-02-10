@@ -15,7 +15,7 @@ class CommunityPost(BaseModel):
     title = models.CharField(max_length=255, help_text="Title of the post")
     content = models.TextField(help_text="Content of the post")
     posted_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="community_posts",
         help_text="User who posted the community post"
@@ -44,7 +44,7 @@ class PostComment(BaseModel):
     )
     content = models.TextField(help_text="Content of the comment")
     commented_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="post_comments",
         help_text="User who made the comment"
@@ -58,13 +58,13 @@ class ArtworkReview(BaseModel):
     Represents a review or rating for an artwork.
     """
     artwork = models.ForeignKey(
-        "kreative.kreative_artworks.Artwork",
+        "artworks.Artwork",
         on_delete=models.CASCADE,
         related_name="reviews",
         help_text="Artwork being reviewed"
     )
     reviewed_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="artwork_reviews",
         help_text="User who reviewed the artwork"

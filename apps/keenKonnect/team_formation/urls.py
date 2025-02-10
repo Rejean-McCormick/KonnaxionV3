@@ -1,7 +1,7 @@
-# apps/keenKonnect/team_formation/urls.py
+# apps/keenkonnect/team_formation/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from keenKonnect.team_formation.views import TeamFormationRequestViewSet, TeamFormationCandidateViewSet
+from keenkonnect.team_formation.views import TeamFormationRequestViewSet, TeamFormationCandidateViewSet
 
 router = DefaultRouter()
 router.register(r'team_formation_requests', TeamFormationRequestViewSet)

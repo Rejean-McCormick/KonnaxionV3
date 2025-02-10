@@ -1,5 +1,5 @@
 """
-File: apps/konnected/konnected_team/models.py
+File: apps/konnected/team/models.py
 
 This module facilitates team creation and management for educational projects.
 It includes models for teams and team invitations.
@@ -19,7 +19,7 @@ class Team(BaseModel):
         help_text="Description of the team."
     )
     members = models.ManyToManyField(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         related_name="teams",
         help_text="Users who are members of this team."
     )
@@ -43,7 +43,7 @@ class TeamInvitation(BaseModel):
         help_text="Team for which the invitation is sent."
     )
     invited_user = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="team_invitations",
         help_text="User who is invited."

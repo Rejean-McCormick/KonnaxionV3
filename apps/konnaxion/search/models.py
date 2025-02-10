@@ -34,7 +34,7 @@ class SearchQueryLog(BaseModel):
     Model for logging search queries performed by users.
     """
     user = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True, blank=True,
         help_text="User who made the search query."

@@ -1,7 +1,7 @@
-# apps/keenKonnect/knowledge_hub/admin.py
+# apps/keenkonnect/knowledge_hub/admin.py
 
 from django.contrib import admin
-from keenKonnect.knowledge_hub.models import KnowledgeDocument, DocumentRevision
+from keenkonnect.knowledge_hub.models import KnowledgeDocument, DocumentRevision
 
 class DocumentRevisionInline(admin.TabularInline):
     model = DocumentRevision

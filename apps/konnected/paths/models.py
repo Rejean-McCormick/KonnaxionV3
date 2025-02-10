@@ -1,5 +1,5 @@
 """
-File: apps/konnected/konnected_paths/models.py
+File: apps/konnected/paths/models.py
 
 This module enables the creation of adaptive learning paths.
 It includes models for assembling knowledge units into personalized curricula.
@@ -19,7 +19,7 @@ class LearningPath(BaseModel):
         help_text="Description of the learning path."
     )
     created_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -40,7 +40,7 @@ class PathStep(BaseModel):
         help_text="The learning path this step belongs to."
     )
     knowledge_unit = models.ForeignKey(
-        "konnected.konnected_foundation.KnowledgeUnit",
+        "foundation.KnowledgeUnit",
         on_delete=models.CASCADE,
         related_name="path_steps",
         help_text="The knowledge unit associated with this step."

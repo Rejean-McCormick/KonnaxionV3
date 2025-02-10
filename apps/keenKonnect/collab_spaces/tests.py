@@ -1,4 +1,4 @@
-# apps/keenKonnect/collab_spaces/tests.py
+# apps/keenkonnect/collab_spaces/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from keenKonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
+from keenkonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
 
 User = get_user_model()
 

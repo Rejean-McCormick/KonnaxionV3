@@ -1,7 +1,7 @@
-# apps/keenKonnect/expert_match/urls.py
+# apps/keenkonnect/expert_match/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from keenKonnect.expert_match.views import ExpertMatchRequestViewSet, CandidateProfileViewSet, MatchScoreViewSet
+from keenkonnect.expert_match.views import ExpertMatchRequestViewSet, CandidateProfileViewSet, MatchScoreViewSet
 
 router = DefaultRouter()
 router.register(r'expert_match_requests', ExpertMatchRequestViewSet)

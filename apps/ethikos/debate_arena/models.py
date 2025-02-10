@@ -16,7 +16,7 @@ class DebateSession(BaseModel):
     topic = models.CharField(max_length=255, help_text="Title or topic of the debate session")
     description = models.TextField(null=True, blank=True, help_text="Description of the debate session")
     moderator = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="moderated_debates",
@@ -41,7 +41,7 @@ class Argument(BaseModel):
         help_text="Debate session this argument belongs to"
     )
     author = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="arguments",
         help_text="User who posted the argument"
@@ -71,7 +71,7 @@ class VoteRecord(BaseModel):
         help_text="The argument being voted on"
     )
     voter = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="vote_records",
         help_text="User who cast the vote"

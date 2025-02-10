@@ -1,17 +1,17 @@
-# apps/keenKonnect/collab_spaces/views.py
+# apps/keenkonnect/collab_spaces/views.py
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenKonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
-from apps.keenKonnect.collab_spaces.serializers import (
+from apps.keenkonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
+from apps.keenkonnect.collab_spaces.serializers import (
     CollabSpaceSerializer,
     DocumentSerializer,
     ChatMessageSerializer
 )
 # Exemple : Importer une tâche asynchrone pour notifier les participants en temps réel
-# from apps.keenKonnect.collab_spaces.tasks import notify_new_chat_message
+# from apps.keenkonnect.collab_spaces.tasks import notify_new_chat_message
 
 class CollabSpaceViewSet(viewsets.ModelViewSet):
     """

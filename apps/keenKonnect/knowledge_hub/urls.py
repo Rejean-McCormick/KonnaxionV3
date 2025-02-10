@@ -1,7 +1,7 @@
-# apps/keenKonnect/knowledge_hub/urls.py
+# apps/keenkonnect/knowledge_hub/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from keenKonnect.knowledge_hub.views import KnowledgeDocumentViewSet, DocumentRevisionViewSet
+from keenkonnect.knowledge_hub.views import KnowledgeDocumentViewSet, DocumentRevisionViewSet
 
 router = DefaultRouter()
 router.register(r'knowledge_documents', KnowledgeDocumentViewSet)

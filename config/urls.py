@@ -15,7 +15,7 @@ urlpatterns = [
     path("", include(api_urlpatterns)),  # Includes your API URLs
     path('api/v1/konnaxion/', include('konnaxion.urls')),
     path('api/v1/konnected/', include('konnected.urls')),
-    path('api/v1/keenKonnect/', include('keenKonnect.urls')),
+    path('api/v1/keenkonnect/', include('keenkonnect.urls')),
     path('api/v1/ethikos/', include('ethikos.urls')),
     path('api/v1/kreative/', include('kreative.urls')),
     path("debug-test/", debug_test, name="debug-test"),

@@ -1,7 +1,7 @@
-# apps/keenKonnect/gap_analysis/admin.py
+# apps/keenkonnect/gap_analysis/admin.py
 
 from django.contrib import admin
-from keenKonnect.gap_analysis.models import GapAnalysis
+from keenkonnect.gap_analysis.models import GapAnalysis
 
 @admin.register(GapAnalysis)
 class GapAnalysisAdmin(admin.ModelAdmin):

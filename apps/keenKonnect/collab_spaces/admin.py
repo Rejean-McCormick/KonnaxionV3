@@ -1,7 +1,7 @@
-# apps/keenKonnect/collab_spaces/admin.py
+# apps/keenkonnect/collab_spaces/admin.py
 
 from django.contrib import admin
-from keenKonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
+from keenkonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
 
 @admin.register(CollabSpace)
 class CollabSpaceAdmin(admin.ModelAdmin):

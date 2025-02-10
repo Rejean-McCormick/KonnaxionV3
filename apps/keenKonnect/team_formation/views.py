@@ -1,16 +1,16 @@
-# apps/keenKonnect/team_formation/views.py
+# apps/keenkonnect/team_formation/views.py
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenKonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
-from apps.keenKonnect.team_formation.serializers import (
+from apps.keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
+from apps.keenkonnect.team_formation.serializers import (
     TeamFormationRequestSerializer,
     TeamFormationCandidateSerializer
 )
 # Exemple : Importer une tâche asynchrone pour lancer la formation d'équipe basée sur l'IA
-# from apps.keenKonnect.team_formation.tasks import trigger_team_formation
+# from apps.keenkonnect.team_formation.tasks import trigger_team_formation
 
 class TeamFormationRequestViewSet(viewsets.ModelViewSet):
     """

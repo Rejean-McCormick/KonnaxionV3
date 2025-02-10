@@ -1,5 +1,5 @@
 """
-File: apps/konnected/konnected_offline/models.py
+File: apps/konnected/offline/models.py
 
 This module ensures that educational content is available offline.
 It includes models for packaging content for offline consumption and tracking synchronization.

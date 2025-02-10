@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenKonnect.gap_analysis.models import GapAnalysis
+from apps.keenkonnect.gap_analysis.models import GapAnalysis
 
 class GapAnalysisSerializer(serializers.ModelSerializer):
     project = serializers.PrimaryKeyRelatedField(read_only=True)

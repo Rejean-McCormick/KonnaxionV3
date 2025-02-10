@@ -1,4 +1,4 @@
-# apps/keenKonnect/gap_analysis/tests.py
+# apps/keenkonnect/gap_analysis/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,9 +8,9 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 # Importation du modèle GapAnalysis depuis le module gap_analysis
-from keenKonnect.gap_analysis.models import GapAnalysis
+from keenkonnect.gap_analysis.models import GapAnalysis
 # Importation du modèle Project depuis le module projects (nécessaire pour l'association)
-from keenKonnect.projects.models import Project
+from keenkonnect.projects.models import Project
 
 User = get_user_model()
 

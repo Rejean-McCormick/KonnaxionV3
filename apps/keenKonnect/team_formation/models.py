@@ -1,5 +1,5 @@
 """
-File: apps/keenKonnect/keenTeamFormation/models.py
+File: apps/keenkonnect/keenTeamFormation/models.py
 
 This module defines models for AI-driven team formation.
 It captures team formation requests and candidate evaluations with computed compatibility scores.
@@ -13,13 +13,13 @@ class TeamFormationRequest(BaseModel):
     Represents a request to form a team for a project.
     """
     project = models.ForeignKey(
-        "keenKonnect.keenKonnect_projects.Project",
+        "projects.Project",
         on_delete=models.CASCADE,
         related_name="team_formation_requests",
         help_text="Project for which the team is being formed."
     )
     requested_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="team_formation_requests",
@@ -42,7 +42,7 @@ class TeamFormationCandidate(BaseModel):
         help_text="Associated team formation request."
     )
     user = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name="team_formation_candidates",
         help_text="User being considered for the team."

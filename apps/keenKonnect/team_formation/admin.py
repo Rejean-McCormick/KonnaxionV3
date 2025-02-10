@@ -1,7 +1,7 @@
-# apps/keenKonnect/team_formation/admin.py
+# apps/keenkonnect/team_formation/admin.py
 
 from django.contrib import admin
-from keenKonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
+from keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
 
 @admin.register(TeamFormationRequest)
 class TeamFormationRequestAdmin(admin.ModelAdmin):

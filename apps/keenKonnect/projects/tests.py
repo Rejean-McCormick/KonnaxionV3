@@ -1,4 +1,4 @@
-# apps/keenKonnect/projects/tests.py
+# apps/keenkonnect/projects/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,7 +8,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from keenKonnect.projects.models import Project, Milestone, Task
+from keenkonnect.projects.models import Project, Milestone, Task
 
 User = get_user_model()
 

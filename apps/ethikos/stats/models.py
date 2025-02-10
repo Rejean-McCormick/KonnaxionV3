@@ -13,7 +13,7 @@ class DebateStatistic(BaseModel):
     Represents a time-series statistical record for a debate session.
     """
     debate_session = models.ForeignKey(
-        "ethikos.debate_arena.DebateSession",
+        "debate_arena.DebateSession",
         on_delete=models.CASCADE,
         related_name="statistics",
         help_text="Associated debate session"
@@ -30,7 +30,7 @@ class DebateEventLog(BaseModel):
     Logs events related to debates for analytics and audit purposes.
     """
     debate_session = models.ForeignKey(
-        "ethikos.debate_arena.DebateSession",
+        "debate_arena.DebateSession",
         on_delete=models.CASCADE,
         related_name="event_logs",
         help_text="Debate session associated with this event"

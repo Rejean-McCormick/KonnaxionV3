@@ -16,7 +16,7 @@ class Lesson(BaseModel):
     content = models.TextField(help_text="Lesson content, which may include rich text, images, and video links.")
     # Optionally associate a lesson with a knowledge unit.
     knowledge_unit = models.ForeignKey(
-        "konnected.konnected_foundation.KnowledgeUnit",
+        "foundation.KnowledgeUnit",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

@@ -1,5 +1,5 @@
 """
-File: apps/keenKonnect/keenKonnect_gap_analysis/models.py
+File: apps/keenkonnectgap_analysis/models.py
 
 This module defines models to record gap analysis data for projects.
 It compares planned versus actual progress and stores recommendations.
@@ -13,7 +13,7 @@ class GapAnalysis(BaseModel):
     Represents a gap analysis record for a project.
     """
     project = models.ForeignKey(
-        "keenKonnect.keenKonnect_projects.Project",
+        "projects.Project",
         on_delete=models.CASCADE,
         related_name="gap_analyses",
         help_text="Project for which the gap analysis is performed."

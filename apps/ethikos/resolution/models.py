@@ -13,7 +13,7 @@ class DebateResolution(BaseModel):
     Documents the final resolution of a debate session.
     """
     debate_session = models.OneToOneField(
-        "ethikos.debate_arena.DebateSession",
+        "debate_arena.DebateSession",
         on_delete=models.CASCADE,
         related_name="resolution",
         help_text="Debate session for which this resolution applies"
@@ -25,7 +25,7 @@ class DebateResolution(BaseModel):
         help_text="JSON record of decision history and audit trail"
     )
     approved_by = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

@@ -13,7 +13,7 @@ class Conversation(BaseModel):
     Model representing a conversation or chat thread between users.
     """
     participants = models.ManyToManyField(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         related_name='conversations',
         help_text="Users participating in this conversation."
     )
@@ -40,7 +40,7 @@ class Message(BaseModel):
         help_text="The conversation this message belongs to."
     )
     sender = models.ForeignKey(
-        "konnaxion.core.CustomUser",
+        "konnaxion_core.CustomUser",
         on_delete=models.CASCADE,
         related_name='sent_messages',
         help_text="User who sent the message."

@@ -1,17 +1,17 @@
-# apps/keenKonnect/expert_match/views.py
+# apps/keenkonnect/expert_match/views.py
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenKonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
-from apps.keenKonnect.expert_match.serializers import (
+from apps.keenkonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
+from apps.keenkonnect.expert_match.serializers import (
     ExpertMatchRequestSerializer,
     CandidateProfileSerializer,
     MatchScoreSerializer
 )
 # Exemple : Importer une tâche asynchrone pour lancer l'algorithme de matching
-# from apps.keenKonnect.expert_match.tasks import trigger_expert_matching
+# from apps.keenkonnect.expert_match.tasks import trigger_expert_matching
 
 class ExpertMatchRequestViewSet(viewsets.ModelViewSet):
     """

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenKonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
+from apps.keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
 
 class TeamFormationRequestSerializer(serializers.ModelSerializer):
     project = serializers.PrimaryKeyRelatedField(read_only=True)
