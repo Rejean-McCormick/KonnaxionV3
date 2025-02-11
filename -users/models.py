@@ -11,7 +11,6 @@ class User(AbstractUser):
     """
 
     class Meta:
-        app_label = "users"  
 
     # First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)

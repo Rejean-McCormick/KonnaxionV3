@@ -24,7 +24,7 @@ class ReputationProfile(BaseModel):
     Captures detailed reputation and ethical trust data for a user.
     """
     user = models.OneToOneField(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="reputation_profile",
         help_text="User's reputation profile"
@@ -64,7 +64,7 @@ class WeightedVote(BaseModel):
     Records a vote cast by a user with a weight determined by reputation.
     """
     user = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="weighted_votes",
         help_text="User casting the vote"

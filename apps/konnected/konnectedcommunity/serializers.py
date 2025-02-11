@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.community.models import DiscussionThread, Comment
+from apps.konnected.konnectedcommunity.models import DiscussionThread, Comment
 
 class DiscussionThreadSerializer(serializers.ModelSerializer):
     class Meta:

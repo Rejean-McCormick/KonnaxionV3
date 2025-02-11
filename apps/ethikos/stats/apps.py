@@ -4,4 +4,3 @@ class EthikosStatsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'ethikos.stats'
     verbose_name = "Ethikos Stats"
-    label = "ethikos_stats"

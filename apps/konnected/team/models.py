@@ -19,7 +19,7 @@ class Team(BaseModel):
         help_text="Description of the team."
     )
     members = models.ManyToManyField(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         related_name="teams",
         help_text="Users who are members of this team."
     )
@@ -43,7 +43,7 @@ class TeamInvitation(BaseModel):
         help_text="Team for which the invitation is sent."
     )
     invited_user = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="team_invitations",
         help_text="User who is invited."

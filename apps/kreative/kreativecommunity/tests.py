@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from konnected.community.models import DiscussionThread, Comment
+from konnected.konnectedcommunity.models import DiscussionThread, Comment
 
 User = get_user_model()
 
@@ -162,7 +162,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from kreative.community.models import CommunityPost, PostComment
+from kreative.kreativecommunity.models import CommunityPost, PostComment
 
 User = get_user_model()
 

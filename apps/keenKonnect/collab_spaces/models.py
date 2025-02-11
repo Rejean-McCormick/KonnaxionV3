@@ -15,14 +15,14 @@ class CollabSpace(BaseModel):
     name = models.CharField(max_length=255, help_text="Name of the collaboration space.")
     description = models.TextField(null=True, blank=True, help_text="Description of the space.")
     created_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="collab_spaces_created",
         help_text="User who created the space."
     )
     participants = models.ManyToManyField(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         related_name="collab_spaces",
         help_text="Users participating in the space."
     )
@@ -45,7 +45,7 @@ class Document(BaseModel):
     file = models.FileField(upload_to="collab_documents/", help_text="Uploaded file for the document.")
     description = models.TextField(null=True, blank=True, help_text="Optional description.")
     uploaded_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="uploaded_documents",
@@ -67,7 +67,7 @@ class ChatMessage(BaseModel):
         help_text="Collaboration space where the message was sent."
     )
     sender = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="chat_messages",
         help_text="User who sent the message."

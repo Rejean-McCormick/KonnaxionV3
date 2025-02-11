@@ -4,4 +4,3 @@ class EthikosResolutionConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'ethikos.resolution'
     verbose_name = "Ethikos Resolution"
-    label = "ethikos_resolution"

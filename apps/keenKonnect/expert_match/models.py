@@ -19,7 +19,7 @@ class ExpertMatchRequest(BaseModel):
         help_text="Project needing expert matching."
     )
     requested_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="expert_match_requests",
@@ -37,7 +37,7 @@ class CandidateProfile(BaseModel):
     Represents a candidate's profile for expert matching.
     """
     user = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="candidate_profiles",
         help_text="User associated with this candidate profile."

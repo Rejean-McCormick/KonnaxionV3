@@ -25,7 +25,7 @@ class DebateResolution(BaseModel):
         help_text="JSON record of decision history and audit trail"
     )
     approved_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

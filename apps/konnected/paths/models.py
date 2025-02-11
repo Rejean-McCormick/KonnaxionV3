@@ -19,7 +19,7 @@ class LearningPath(BaseModel):
         help_text="Description of the learning path."
     )
     created_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

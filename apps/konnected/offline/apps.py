@@ -4,4 +4,3 @@ class KonnectedOfflineConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'konnected.offline'
     verbose_name = "Konnected Offline"
-    label = "konnected_offline"

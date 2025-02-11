@@ -100,7 +100,7 @@ LOCAL_APPS = [
     "konnected.learning",
     "konnected.team",
     "konnected.paths",
-    "konnected.community",
+    "konnected.konnectedcommunity",
     "konnected.offline",
 
     "keenkonnect.projects",
@@ -119,7 +119,7 @@ LOCAL_APPS = [
 
     "kreative.artworks",
     "kreative.marketplace",
-    "kreative.community",
+    "kreative.kreativecommunity",
     "kreative.immersive",
 ]
 
@@ -140,7 +140,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # Update custom user model to point to our new model in the konnaxion_core app.
-AUTH_USER_MODEL = "konnaxion_core.CustomUser"
+AUTH_USER_MODEL = "core.CustomUser"
 LOGIN_REDIRECT_URL = "users:redirect"  # Adjust if needed.
 LOGIN_URL = "account_login"
 

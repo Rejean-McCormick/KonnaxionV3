@@ -17,7 +17,7 @@ class KnowledgeDocument(BaseModel):
     document_file = models.FileField(upload_to="knowledge_documents/", help_text="Uploaded document file.")
     version = models.CharField(max_length=50, default="1.0", help_text="Document version.")
     created_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="knowledge_documents",
@@ -40,7 +40,7 @@ class DocumentRevision(BaseModel):
     revision_number = models.CharField(max_length=50, help_text="Revision number or identifier.")
     changes = models.TextField(help_text="Description of the changes in this revision.")
     revised_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="document_revisions",

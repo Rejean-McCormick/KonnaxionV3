@@ -1,7 +1,7 @@
 # apps/kreative/community/admin.py
 
 from django.contrib import admin
-from kreative.community.models import CommunityPost, PostComment
+from kreative.kreativecommunity.models import CommunityPost, PostComment
 
 @admin.register(CommunityPost)
 class CommunityPostAdmin(admin.ModelAdmin):

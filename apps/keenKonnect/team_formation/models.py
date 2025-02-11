@@ -19,7 +19,7 @@ class TeamFormationRequest(BaseModel):
         help_text="Project for which the team is being formed."
     )
     requested_by = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.SET_NULL,
         null=True,
         related_name="team_formation_requests",
@@ -42,7 +42,7 @@ class TeamFormationCandidate(BaseModel):
         help_text="Associated team formation request."
     )
     user = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="team_formation_candidates",
         help_text="User being considered for the team."

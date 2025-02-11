@@ -1,7 +1,7 @@
-# apps/konnected/community/admin.py
+# apps/konnected/konnectedcommunity/admin.py
 
 from django.contrib import admin
-from konnected.community.models import DiscussionThread, Comment
+from konnected.konnectedcommunity.models import DiscussionThread, Comment
 
 class CommentInline(admin.TabularInline):
     model = Comment

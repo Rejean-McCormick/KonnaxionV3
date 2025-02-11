@@ -4,4 +4,3 @@ class KonnaxionEkohConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'konnaxion.ekoh'
     verbose_name = "Konnaxion Ekoh"
-    label = "konnaxion_ekoh"

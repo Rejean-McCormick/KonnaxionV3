@@ -42,7 +42,7 @@ class PersonalizedRecommendation(BaseModel):
     Stores personalized debate topic recommendations for users.
     """
     user = models.ForeignKey(
-        "konnaxion_core.CustomUser",
+        "core.CustomUser",
         on_delete=models.CASCADE,
         related_name="recommendations",
         help_text="User receiving the recommendation"
