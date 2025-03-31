@@ -3,10 +3,10 @@
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from apps.konnected.offline.models import OfflineContentPackage
-from apps.konnected.offline.serializers import OfflineContentPackageSerializer
+from konnected.offline.models import OfflineContentPackage
+from konnected.offline.serializers import OfflineContentPackageSerializer
 # Exemple : depuis un module de tâches asynchrones pour lancer la synchronisation
-# from apps.konnected.offline.tasks import sync_offline_content
+# from konnected.offline.tasks import sync_offline_content
 
 class OfflineContentPackageViewSet(viewsets.ModelViewSet):
     """

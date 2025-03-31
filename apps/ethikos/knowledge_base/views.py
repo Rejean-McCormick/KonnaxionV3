@@ -1,8 +1,8 @@
 # apps/ethikos/knowledge_base/views.py
 
 from rest_framework import viewsets, permissions
-from apps.ethikos.knowledge_base.models import DebateArchive
-from apps.ethikos.knowledge_base.serializers import DebateArchiveSerializer
+from ethikos.knowledge_base.models import DebateArchive
+from ethikos.knowledge_base.serializers import DebateArchiveSerializer
 
 class DebateArchiveViewSet(viewsets.ModelViewSet):
     """

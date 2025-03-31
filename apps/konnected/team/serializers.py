@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.team.models import Team, TeamInvitation
+from konnected.team.models import Team, TeamInvitation
 
 class TeamSerializer(serializers.ModelSerializer):
     members = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

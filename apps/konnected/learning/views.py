@@ -2,8 +2,8 @@
 # apps/konnected/learning/views.py
 
 from rest_framework import viewsets, permissions
-from apps.konnected.learning.models import Lesson, Quiz, Question, Answer
-from apps.konnected.learning.serializers import (
+from konnected.learning.models import Lesson, Quiz, Question, Answer
+from konnected.learning.serializers import (
     LessonSerializer,
     QuizSerializer,
     QuestionSerializer,

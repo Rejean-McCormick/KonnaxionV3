@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.notifications.models import Notification
+from konnaxion.notifications.models import Notification
 
 class NotificationSerializer(serializers.ModelSerializer):
     sender = serializers.PrimaryKeyRelatedField(read_only=True)

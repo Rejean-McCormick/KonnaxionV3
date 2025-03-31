@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.core.models import CustomUser, SystemConfiguration, ConfigurationChangeLog
+from konnaxion.core.models import CustomUser, SystemConfiguration, ConfigurationChangeLog
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:

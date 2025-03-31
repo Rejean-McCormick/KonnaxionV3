@@ -1,5 +1,3 @@
-# konnaxion_project/config/api_router.py
-
 """
 API Router for the Konnaxion Project
 
@@ -11,39 +9,38 @@ from django.urls import include, path
 
 urlpatterns = [
     # Ekoh endpoints
-    path("api/ekoh/", include("konnaxion_project.ekoh.urls")),
+    path("api/ekoh/", include("konnaxion.ekoh.urls")),
     
     # Debate Arena endpoints
-    path("api/debate/", include("konnaxion_project.debate_arena.urls")),
+    path("api/debate/", include("ethikos.debate_arena.urls")),
     
     # Ethikos suite of endpoints
-    path("api/ethikos/home/", include("konnaxion_project.ethikos_home.urls")),
-    path("api/ethikos/knowledge-base/", include("konnaxion_project.ethikos_knowledge_base.urls")),
-    path("api/ethikos/prioritization/", include("konnaxion_project.ethikos_prioritization.urls")),
-    path("api/ethikos/resolution/", include("konnaxion_project.ethikos_resolution.urls")),
-    path("api/ethikos/stats/", include("konnaxion_project.ethikos_stats.urls")),
+    path("api/ethikos/home/", include("ethikos.home.urls")),
+    path("api/ethikos/knowledge-base/", include("ethikos.knowledge_base.urls")),
+    path("api/ethikos/prioritization/", include("ethikos.prioritization.urls")),
+    path("api/ethikos/resolution/", include("ethikos.resolution.urls")),
+    path("api/ethikos/stats/", include("ethikos.stats.urls")),
     
     # Keen apps endpoints
-    path("api/keen/collab-spaces/", include("konnaxion_project.keen_collab_spaces.urls")),
-    path("api/keen/knowledge-hub/", include("konnaxion_project.keen_knowledge_hub.urls")),
-    path("api/keen/projects/", include("konnaxion_project.keen_projects.urls")),
-    path("api/keen/team-formation/", include("konnaxion_project.keen_team_formation.urls")),
+    path("api/keen/collab-spaces/", include("keenkonnect.collab_spaces.urls")),
+    path("api/keen/knowledge-hub/", include("keenkonnect.knowledge_hub.urls")),
+    path("api/keen/projects/", include("keenkonnect.projects.urls")),
+    path("api/keen/team-formation/", include("keenkonnect.team_formation.urls")),
     
     # Konnaxion endpoints
-    #path("api/konnaxion/ai/", include("konnaxion_ai.urls")),
-    path("api/konnaxion/core/", include("konnaxion_project.konnaxion_core.urls")),
-    path("api/konnaxion/messaging/", include("konnaxion_project.konnaxion_messaging.urls")),
-    path("api/konnaxion/notifications/", include("konnaxion_project.konnaxion_notifications.urls")),
-    path("api/konnaxion/search/", include("konnaxion_project.konnaxion_search.urls")),
+    path("api/konnaxion/core/", include("konnaxion.core.urls")),
+    path("api/konnaxion/messaging/", include("konnaxion.messaging.urls")),
+    path("api/konnaxion/notifications/", include("konnaxion.notifications.urls")),
+    path("api/konnaxion/search/", include("konnaxion.search.urls")),
     
     # Konnected endpoints
-    path("api/konnected/foundation/", include("konnaxion_project.konnected_foundation.urls")),
-    path("api/konnected/community/", include("konnaxion_project.konnected_community.urls")),
-    path("api/konnected/learning/", include("konnaxion_project.konnected_learning.urls")),
-    path("api/konnected/offline/", include("konnaxion_project.konnected_offline.urls")),
+    path("api/konnected/foundation/", include("konnected.foundation.urls")),
+    path("api/konnected/konnectedcommunity/", include("konnected.konnectedcommunity.urls")),
+    path("api/konnected/learning/", include("konnected.learning.urls")),
+    path("api/konnected/offline/", include("konnected.offline.urls")),
     
     # Kreative endpoints
-    path("api/kreative/core/", include("konnaxion_project.kreative_core.urls")),
+    #path("api/kreative/core/", include("kreative.core.urls")),
     
     # Add additional endpoints here as needed.
 ]

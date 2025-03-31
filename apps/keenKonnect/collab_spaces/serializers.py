@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenkonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
+from keenkonnect.collab_spaces.models import CollabSpace, Document, ChatMessage
 
 class CollabSpaceSerializer(serializers.ModelSerializer):
     participants = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

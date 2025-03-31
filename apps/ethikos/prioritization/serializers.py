@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.ethikos.prioritization.models import DebatePrioritization
+from ethikos.prioritization.models import DebatePrioritization
 
 class DebatePrioritizationSerializer(serializers.ModelSerializer):
     debate_session = serializers.PrimaryKeyRelatedField(read_only=True)

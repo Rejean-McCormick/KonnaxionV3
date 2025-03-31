@@ -1,5 +1,5 @@
 """
-File: apps/keenkonnect/keenCollabSpaces/models.py
+File: \apps\keenkonnect\collab_spaces/models.py
 
 This module defines models for real-time collaboration spaces.
 It includes models for collaborative workspaces, document sharing, and chat messages.
@@ -73,6 +73,7 @@ class ChatMessage(BaseModel):
         help_text="User who sent the message."
     )
     message = models.TextField(help_text="Content of the chat message.")
+    is_read = models.BooleanField(default=False, help_text="Indicates if the message has been read.")
 
     def __str__(self):
         return f"Message from {self.sender} in {self.collab_space.name}"

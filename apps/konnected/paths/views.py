@@ -1,8 +1,8 @@
 # apps/konnected/paths/views.py
 
 from rest_framework import viewsets, permissions
-from apps.konnected.paths.models import LearningPath, PathStep
-from apps.konnected.paths.serializers import LearningPathSerializer, PathStepSerializer
+from konnected.paths.models import LearningPath, PathStep
+from konnected.paths.serializers import LearningPathSerializer, PathStepSerializer
 
 class LearningPathViewSet(viewsets.ModelViewSet):
     """

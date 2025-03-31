@@ -1,8 +1,8 @@
 # apps/ethikos/resolution/views.py
 
 from rest_framework import viewsets, permissions
-from apps.ethikos.resolution.models import DebateResolution
-from apps.ethikos.resolution.serializers import DebateResolutionSerializer
+from ethikos.resolution.models import DebateResolution
+from ethikos.resolution.serializers import DebateResolutionSerializer
 
 class DebateResolutionViewSet(viewsets.ModelViewSet):
     """

@@ -4,13 +4,13 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenkonnect.knowledge_hub.models import KnowledgeDocument, DocumentRevision
-from apps.keenkonnect.knowledge_hub.serializers import (
+from keenkonnect.knowledge_hub.models import KnowledgeDocument, DocumentRevision
+from keenkonnect.knowledge_hub.serializers import (
     KnowledgeDocumentSerializer,
     DocumentRevisionSerializer
 )
 # Exemple : Importer une tâche asynchrone pour gérer la révision de document
-# from apps.keenkonnect.knowledge_hub.tasks import trigger_document_revision
+# from keenkonnect.knowledge_hub.tasks import trigger_document_revision
 
 class KnowledgeDocumentViewSet(viewsets.ModelViewSet):
     """

@@ -1,5 +1,5 @@
 """
-File: apps/kreative/kreative_artworks/models.py
+File: apps\kreative\artworks\models.py
 
 Purpose:
 Build models for the artwork catalog, including fields for media uploads, metadata,

@@ -4,8 +4,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.ethikos.debate_arena.models import DebateSession, Argument, VoteRecord
-from apps.ethikos.debate_arena.serializers import (
+from ethikos.debate_arena.models import DebateSession, Argument, VoteRecord
+from ethikos.debate_arena.serializers import (
     DebateSessionSerializer,
     ArgumentSerializer,
     VoteRecordSerializer

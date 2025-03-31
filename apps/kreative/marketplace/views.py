@@ -3,8 +3,8 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from apps.kreative.marketplace.models import ArtistProfile, Commission, MarketplaceListing
-from apps.kreative.marketplace.serializers import (
+from kreative.marketplace.models import ArtistProfile, Commission, MarketplaceListing
+from kreative.marketplace.serializers import (
     ArtistProfileSerializer,
     CommissionSerializer,
     MarketplaceListingSerializer

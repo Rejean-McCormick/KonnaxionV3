@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.ekoh.models import ExpertiseTag, ReputationProfile, ReputationEvent, WeightedVote
+from konnaxion.ekoh.models import ExpertiseTag, ReputationProfile, ReputationEvent, WeightedVote
 
 class ExpertiseTagSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,8 +1,8 @@
 # apps/konnected/team/views.py
 
 from rest_framework import viewsets, permissions
-from apps.konnected.team.models import Team, TeamInvitation
-from apps.konnected.team.serializers import TeamSerializer, TeamInvitationSerializer
+from konnected.team.models import Team, TeamInvitation
+from konnected.team.serializers import TeamSerializer, TeamInvitationSerializer
 
 class TeamViewSet(viewsets.ModelViewSet):
     """

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.messaging.models import Conversation, Message
+from konnaxion.messaging.models import Conversation, Message
 
 class ConversationSerializer(serializers.ModelSerializer):
     participants = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

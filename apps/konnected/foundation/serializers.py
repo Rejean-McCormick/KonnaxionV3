@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.foundation.models import KnowledgeUnit
+from konnected.foundation.models import KnowledgeUnit
 
 class KnowledgeUnitSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.kreative.kreativecommunity.models import CommunityPost, PostComment, ArtworkReview
+from kreative.kreativecommunity.models import CommunityPost, PostComment, ArtworkReview
 
 class CommunityPostSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,13 +4,13 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
-from apps.keenkonnect.team_formation.serializers import (
+from keenkonnect.team_formation.models import TeamFormationRequest, TeamFormationCandidate
+from keenkonnect.team_formation.serializers import (
     TeamFormationRequestSerializer,
     TeamFormationCandidateSerializer
 )
 # Exemple : Importer une tâche asynchrone pour lancer la formation d'équipe basée sur l'IA
-# from apps.keenkonnect.team_formation.tasks import trigger_team_formation
+# from keenkonnect.team_formation.tasks import trigger_team_formation
 
 class TeamFormationRequestViewSet(viewsets.ModelViewSet):
     """

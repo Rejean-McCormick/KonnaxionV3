@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.kreative.marketplace.models import ArtistProfile, Commission, MarketplaceListing
+from kreative.marketplace.models import ArtistProfile, Commission, MarketplaceListing
 
 class ArtistProfileSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)

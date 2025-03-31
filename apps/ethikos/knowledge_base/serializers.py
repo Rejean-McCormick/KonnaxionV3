@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.ethikos.knowledge_base.models import DebateArchive
+from ethikos.knowledge_base.models import DebateArchive
 
 class DebateArchiveSerializer(serializers.ModelSerializer):
     class Meta:

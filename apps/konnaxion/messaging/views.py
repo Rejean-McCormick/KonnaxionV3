@@ -2,10 +2,10 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.konnaxion.messaging.models import Conversation, Message
-from apps.konnaxion.messaging.serializers import ConversationSerializer, MessageSerializer
+from konnaxion.messaging.models import Conversation, Message
+from konnaxion.messaging.serializers import ConversationSerializer, MessageSerializer
 # Exemple : Importer une tâche pour notifier en temps réel (WebSocket/Celery)
-# from apps.konnaxion.messaging.tasks import notify_new_message
+# from konnaxion.messaging.tasks import notify_new_message
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """

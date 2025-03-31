@@ -1,0 +1,1154 @@
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\admin.py ---
+# apps/konnected/foundation/admin.py
+
+from django.contrib import admin
+from konnected.foundation.models import KnowledgeUnit
+
+@admin.register(KnowledgeUnit)
+class KnowledgeUnitAdmin(admin.ModelAdmin):
+    list_display = ('title', 'language', 'version', 'created_at')
+    list_filter = ('language', 'version')
+    search_fields = ('title', 'content')
+    ordering = ('title',)
+    
+    fieldsets = (
+        (None, {'fields': ('title', 'content')}),
+        ('Détails', {'fields': ('language', 'version')}),
+    )
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedFoundationConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.foundation'
+    verbose_name = "Konnected Foundation"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\models.py ---
+"""
+File: apps/konnected/foundation/models.py
+
+This module manages the core educational content (“Knowledge Units”).
+It includes models for storing rich text, multimedia, and resource attachments,
+with support for versioning and audit trails.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class KnowledgeUnit(BaseModel):
+    """
+    Represents a unit of educational content.
+    """
+    title = models.CharField(max_length=255, help_text="Title of the knowledge unit.")
+    content = models.TextField(help_text="Rich text content of the knowledge unit.")
+    attachments = models.JSONField(
+        null=True,
+        blank=True,
+        help_text="JSON list of attachment URLs or metadata."
+    )
+    language = models.CharField(
+        max_length=10,
+        default="en",
+        help_text="Language code for the content."
+    )
+    version = models.PositiveIntegerField(
+        default=1,
+        help_text="Version number of the knowledge unit."
+    )
+
+    def __str__(self):
+        return self.title
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\serializers.py ---
+from rest_framework import serializers
+from konnected.foundation.models import KnowledgeUnit
+
+class KnowledgeUnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KnowledgeUnit
+        fields = [
+            'id',
+            'title',
+            'content',
+            'attachments',
+            'language',
+            'version',
+            'created_at',
+            'updated_at'
+        ]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\urls.py ---
+# apps/konnected/foundation/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from konnected.foundation.views import KnowledgeUnitViewSet
+
+router = DefaultRouter()
+router.register(r'knowledge_units', KnowledgeUnitViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\foundation\views.py ---
+# apps/konnected/foundation/views.py
+
+from rest_framework import viewsets, permissions
+from konnected.foundation.models import KnowledgeUnit
+from konnected.foundation.serializers import KnowledgeUnitSerializer
+
+class KnowledgeUnitViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les Knowledge Units (contenu éducatif de base).
+    """
+    queryset = KnowledgeUnit.objects.all()
+    serializer_class = KnowledgeUnitSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\admin.py ---
+# apps/konnected/konnectedcommunity/admin.py
+
+from django.contrib import admin
+from konnected.konnectedcommunity.models import DiscussionThread, Comment
+
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 1
+    fields = ('author', 'content', 'created_at')
+    readonly_fields = ('created_at',)
+
+@admin.register(DiscussionThread)
+class DiscussionThreadAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'created_at', 'comment_count')
+    search_fields = ('title', 'content')
+    ordering = ('-created_at',)
+    inlines = [CommentInline]
+
+    def comment_count(self, obj):
+        return obj.comments.count()
+    comment_count.short_description = "Nombre de commentaires"
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('thread', 'author', 'short_content', 'created_at')
+    list_filter = ('thread', 'author')
+    search_fields = ('content',)
+    ordering = ('-created_at',)
+
+    def short_content(self, obj):
+        return (obj.content[:75] + '...') if len(obj.content) > 75 else obj.content
+    short_content.short_description = "Contenu"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedCommunityConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.konnectedcommunity'
+    verbose_name = "Konnected Community"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\models.py ---
+"""
+File: apps/konnected/konnectedcommunity/models.py
+
+This module provides a forum for educational Q&A and discussions.
+It includes models for discussion threads and nested comments.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class DiscussionThread(BaseModel):
+    """
+    Represents a discussion thread for educational topics.
+    """
+    title = models.CharField(max_length=255, help_text="Title of the discussion thread.")
+    content = models.TextField(help_text="Initial content or description of the thread.")
+    author = models.ForeignKey(
+        "core.CustomUser",
+        on_delete=models.CASCADE,
+        related_name="discussion_threads",
+        help_text="User who started the discussion."
+    )
+
+    def __str__(self):
+        return self.title
+
+class Comment(BaseModel):
+    """
+    Represents a comment on a discussion thread, supporting nested replies.
+    """
+    thread = models.ForeignKey(
+        DiscussionThread,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        help_text="The discussion thread to which this comment belongs."
+    )
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replies",
+        help_text="Parent comment if this is a reply; null if top-level."
+    )
+    author = models.ForeignKey(
+        "core.CustomUser",
+        on_delete=models.CASCADE,
+        related_name="comments",
+        help_text="User who posted the comment."
+    )
+    content = models.TextField(help_text="Content of the comment.")
+    vote_count = models.IntegerField(
+        default=0,
+        help_text="Net vote count for the comment."
+    )
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.thread.title}"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\serializers.py ---
+from rest_framework import serializers
+from konnected.konnectedcommunity.models import DiscussionThread, Comment
+
+class DiscussionThreadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiscussionThread
+        fields = [
+            'id',
+            'title',
+            'content',
+            'author',
+            'created_at',
+            'updated_at'
+        ]
+
+class CommentSerializer(serializers.ModelSerializer):
+    replies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = [
+            'id',
+            'thread',
+            'parent',
+            'author',
+            'content',
+            'vote_count',
+            'created_at',
+            'updated_at',
+            'replies'
+        ]
+
+    def get_replies(self, obj):
+        qs = obj.replies.all()
+        return CommentSerializer(qs, many=True).data
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\urls.py ---
+from django.urls import path
+from .views import (
+    DiscussionThreadListView,
+    DiscussionThreadDetailView,
+    DiscussionThreadCreateView,
+    CommentCreateView,
+)
+
+app_name = "community"
+
+urlpatterns = [
+    path("", DiscussionThreadListView.as_view(), name="thread_list"),
+    path("thread/<int:pk>/", DiscussionThreadDetailView.as_view(), name="thread_detail"),
+    path("thread/create/", DiscussionThreadCreateView.as_view(), name="thread_create"),
+    # For posting a comment on a specific thread
+    path("thread/<int:thread_pk>/comment/create/", CommentCreateView.as_view(), name="comment_create"),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\konnectedcommunity\views.py ---
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView
+from django import forms
+from .models import DiscussionThread, Comment
+
+# A simple ModelForm for creating a Comment.
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        # We only ask for content (parent can be None for top‐level comments)
+        fields = ['content', 'parent']
+        widgets = {
+            # Optionally hide the parent field in the form if you want to
+            # restrict it to replying in the detail view
+            'parent': forms.HiddenInput(),
+        }
+
+class DiscussionThreadListView(ListView):
+    """List all discussion threads."""
+    model = DiscussionThread
+    template_name = "konnected/community/thread_list.html"  # create this template
+    context_object_name = "threads"
+    paginate_by = 10  # adjust as needed
+
+class DiscussionThreadDetailView(DetailView):
+    """Show a single discussion thread and its comments."""
+    model = DiscussionThread
+    template_name = "konnected/community/thread_detail.html"  # create this template
+    context_object_name = "thread"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get top-level comments (those with no parent)
+        context["comments"] = self.object.comments.filter(parent__isnull=True)
+        # Provide an empty comment form for adding a comment to this thread.
+        context["comment_form"] = CommentForm(initial={"parent": None})
+        return context
+
+class DiscussionThreadCreateView(CreateView):
+    """Allow a user to create a new discussion thread."""
+    model = DiscussionThread
+    template_name = "konnected/community/thread_form.html"  # create this template
+    fields = ["title", "content"]
+    success_url = reverse_lazy("community:thread_list")
+
+    def form_valid(self, form):
+        # Set the current user as the author
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class CommentCreateView(CreateView):
+    """Allow a user to add a comment to a thread."""
+    model = Comment
+    form_class = CommentForm
+    template_name = "konnected/community/comment_form.html"  # create this template
+
+    def form_valid(self, form):
+        # Set the current user as the author and assign the thread.
+        form.instance.author = self.request.user
+        # We assume the URL includes a thread_pk parameter.
+        thread_pk = self.kwargs.get("thread_pk")
+        form.instance.thread = DiscussionThread.objects.get(pk=thread_pk)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect back to the thread detail page.
+        return reverse("community:thread_detail", kwargs={"pk": self.kwargs.get("thread_pk")})
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\admin.py ---
+# apps/konnected/learning/admin.py
+
+from django.contrib import admin
+from konnected.learning.models import Lesson, Quiz, Question, Answer
+
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ('title', 'knowledge_unit', 'created_at')
+    search_fields = ('title', 'content')
+    ordering = ('title',)
+
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ('title', 'lesson', 'time_limit', 'created_at')
+    list_filter = ('lesson',)
+    search_fields = ('title',)
+    ordering = ('title',)
+
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    extra = 1
+    fields = ('text', 'is_correct')
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('short_text', 'quiz', 'question_type', 'created_at')
+    list_filter = ('question_type', 'quiz')
+    search_fields = ('text',)
+    ordering = ('quiz',)
+    inlines = [AnswerInline]
+
+    def short_text(self, obj):
+        return (obj.text[:75] + '...') if len(obj.text) > 75 else obj.text
+    short_text.short_description = "Question"
+
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ('question', 'text', 'is_correct', 'created_at')
+    list_filter = ('is_correct', 'question')
+    search_fields = ('text',)
+    ordering = ('question',)
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedLearningConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.learning'
+    verbose_name = "Konnected Learning"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\models.py ---
+"""
+File: apps/konnected/konnected_learning/models.py
+
+This module defines models for interactive lessons, quizzes, and assessments.
+It includes models for lessons, quizzes, questions, and answers.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class Lesson(BaseModel):
+    """
+    Represents an interactive lesson.
+    """
+    title = models.CharField(max_length=255, help_text="Title of the lesson.")
+    content = models.TextField(help_text="Lesson content, which may include rich text, images, and video links.")
+    # Optionally associate a lesson with a knowledge unit.
+    knowledge_unit = models.ForeignKey(
+        "foundation.KnowledgeUnit",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="lessons",
+        help_text="Associated knowledge unit, if any."
+    )
+
+    def __str__(self):
+        return self.title
+
+class Quiz(BaseModel):
+    """
+    Represents a quiz associated with a lesson.
+    """
+    lesson = models.ForeignKey(
+        Lesson,
+        on_delete=models.CASCADE,
+        related_name="quizzes",
+        help_text="Lesson associated with this quiz."
+    )
+    title = models.CharField(max_length=255, help_text="Title of the quiz.")
+    instructions = models.TextField(help_text="Quiz instructions or guidelines.")
+    time_limit = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Time limit in minutes, if applicable."
+    )
+
+    def __str__(self):
+        return f"{self.title} (Quiz for {self.lesson.title})"
+
+class Question(BaseModel):
+    """
+    Represents a question in a quiz.
+    """
+    QUESTION_TYPE_CHOICES = [
+        ('text', 'Text'),
+        ('multiple_choice', 'Multiple Choice'),
+    ]
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="questions",
+        help_text="Quiz to which this question belongs."
+    )
+    text = models.TextField(help_text="The question text.")
+    question_type = models.CharField(
+        max_length=20,
+        choices=QUESTION_TYPE_CHOICES,
+        default='text',
+        help_text="Type of question."
+    )
+    correct_answer = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Correct answer for the question (if applicable)."
+    )
+
+    def __str__(self):
+        return f"Question: {self.text[:50]}..."
+
+class Answer(BaseModel):
+    """
+    Represents an answer option for a multiple choice question.
+    """
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="answers",
+        help_text="The question this answer belongs to."
+    )
+    text = models.TextField(help_text="Answer option text.")
+    is_correct = models.BooleanField(
+        default=False,
+        help_text="Indicates if this is the correct answer."
+    )
+
+    def __str__(self):
+        return f"Answer: {self.text[:50]}{' (Correct)' if self.is_correct else ''}"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\serializers.py ---
+from rest_framework import serializers
+from konnected.learning.models import Lesson, Quiz, Question, Answer
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = [
+            'id',
+            'title',
+            'content',
+            'knowledge_unit',
+            'created_at',
+            'updated_at'
+        ]
+
+class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = [
+            'id',
+            'lesson',
+            'title',
+            'instructions',
+            'time_limit',
+            'created_at',
+            'updated_at'
+        ]
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = [
+            'id',
+            'quiz',
+            'text',
+            'question_type',
+            'correct_answer',
+            'created_at',
+            'updated_at'
+        ]
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = [
+            'id',
+            'question',
+            'text',
+            'is_correct',
+            'created_at',
+            'updated_at'
+        ]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\urls.py ---
+# apps/konnected/learning/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from konnected.learning.views import LessonViewSet, QuizViewSet, QuestionViewSet, AnswerViewSet
+
+router = DefaultRouter()
+router.register(r'lessons', LessonViewSet)
+router.register(r'quizzes', QuizViewSet)
+router.register(r'questions', QuestionViewSet)
+router.register(r'answers', AnswerViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\learning\views.py ---
+
+# apps/konnected/learning/views.py
+
+from rest_framework import viewsets, permissions
+from konnected.learning.models import Lesson, Quiz, Question, Answer
+from konnected.learning.serializers import (
+    LessonSerializer,
+    QuizSerializer,
+    QuestionSerializer,
+    AnswerSerializer
+)
+
+class LessonViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les leçons interactives.
+    """
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class QuizViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les quiz associés aux leçons.
+    """
+    queryset = Quiz.objects.all()
+    serializer_class = QuizSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les questions des quiz.
+    """
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class AnswerViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les réponses aux questions.
+    """
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\admin.py ---
+# apps/konnected/offline/admin.py
+
+from django.contrib import admin
+from django.contrib import messages
+from konnected.offline.models import OfflineContentPackage
+
+@admin.register(OfflineContentPackage)
+class OfflineContentPackageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'last_synced', 'created_at')
+    search_fields = ('title', 'description')
+    ordering = ('-created_at',)
+    
+    actions = ['trigger_sync']
+
+    def trigger_sync(self, request, queryset):
+        # Ici, vous pouvez intégrer l'appel à une tâche asynchrone par exemple via Celery.
+        # Pour l'instant, nous simulons simplement l'action avec un message.
+        count = queryset.count()
+        # Exemple d'appel : sync_offline_content.delay(package.id) pour chaque package
+        self.message_user(request, f"Sync déclenché pour {count} package(s).", messages.SUCCESS)
+    trigger_sync.short_description = "Déclencher la synchronisation des packages offline"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedOfflineConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.offline'
+    verbose_name = "Konnected Offline"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\models.py ---
+"""
+File: apps/konnected/offline/models.py
+
+This module ensures that educational content is available offline.
+It includes models for packaging content for offline consumption and tracking synchronization.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class OfflineContentPackage(BaseModel):
+    """
+    Represents a packaged set of educational content for offline use.
+    """
+    title = models.CharField(max_length=255, help_text="Title of the offline content package.")
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Description of the offline package."
+    )
+    content_data = models.JSONField(help_text="JSON data representing the packaged content for offline use.")
+    last_synced = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Timestamp of the last successful sync."
+    )
+    conflict_resolution_notes = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Notes on any conflicts during sync."
+    )
+
+    def __str__(self):
+        return self.title
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\serializers.py ---
+from rest_framework import serializers
+from konnected.offline.models import OfflineContentPackage
+
+class OfflineContentPackageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OfflineContentPackage
+        fields = [
+            'id',
+            'title',
+            'description',
+            'content_data',
+            'last_synced',
+            'conflict_resolution_notes',
+            'created_at',
+            'updated_at'
+        ]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\urls.py ---
+# apps/konnected/offline/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from konnected.offline.views import OfflineContentPackageViewSet
+
+router = DefaultRouter()
+router.register(r'offline_packages', OfflineContentPackageViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\offline\views.py ---
+# apps/konnected/offline/views.py
+
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from konnected.offline.models import OfflineContentPackage
+from konnected.offline.serializers import OfflineContentPackageSerializer
+# Exemple : depuis un module de tâches asynchrones pour lancer la synchronisation
+# from konnected.offline.tasks import sync_offline_content
+
+class OfflineContentPackageViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les packages de contenu pour l'utilisation offline.
+    """
+    queryset = OfflineContentPackage.objects.all()
+    serializer_class = OfflineContentPackageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def sync(self, request, pk=None):
+        """
+        Action personnalisée pour déclencher la synchronisation du package offline.
+        """
+        package = self.get_object()
+        # Exemple : déclencher la tâche asynchrone de synchronisation
+        # sync_offline_content.delay(package.id)
+        return Response({"status": "Sync déclenché", "package_id": package.id})
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\admin.py ---
+# apps/konnected/paths/admin.py
+
+from django.contrib import admin
+from konnected.paths.models import LearningPath, PathStep
+
+class PathStepInline(admin.TabularInline):
+    model = PathStep
+    extra = 1
+    fields = ('knowledge_unit', 'order')
+
+@admin.register(LearningPath)
+class LearningPathAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_by', 'created_at')
+    search_fields = ('title', 'description')
+    ordering = ('title',)
+    inlines = [PathStepInline]
+
+@admin.register(PathStep)
+class PathStepAdmin(admin.ModelAdmin):
+    list_display = ('learning_path', 'knowledge_unit', 'order')
+    list_filter = ('learning_path',)
+    ordering = ('learning_path', 'order')
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedPathsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.paths'
+    verbose_name = "Konnected Paths"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\models.py ---
+"""
+File: apps/konnected/paths/models.py
+
+This module enables the creation of adaptive learning paths.
+It includes models for assembling knowledge units into personalized curricula.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class LearningPath(BaseModel):
+    """
+    Represents a personalized learning path (curriculum).
+    """
+    title = models.CharField(max_length=255, help_text="Title of the learning path.")
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Description of the learning path."
+    )
+    created_by = models.ForeignKey(
+        "core.CustomUser",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="User who created the learning path."
+    )
+
+    def __str__(self):
+        return self.title
+
+class PathStep(BaseModel):
+    """
+    Represents an individual step within a learning path, linking a knowledge unit.
+    """
+    learning_path = models.ForeignKey(
+        LearningPath,
+        on_delete=models.CASCADE,
+        related_name="steps",
+        help_text="The learning path this step belongs to."
+    )
+    knowledge_unit = models.ForeignKey(
+        "foundation.KnowledgeUnit",
+        on_delete=models.CASCADE,
+        related_name="path_steps",
+        help_text="The knowledge unit associated with this step."
+    )
+    order = models.PositiveIntegerField(help_text="The order/sequence of this step in the learning path.")
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.learning_path.title} - Step {self.order}: {self.knowledge_unit.title}"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\serializers.py ---
+from rest_framework import serializers
+from konnected.paths.models import LearningPath, PathStep
+
+class LearningPathSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LearningPath
+        fields = [
+            'id',
+            'title',
+            'description',
+            'created_by',
+            'created_at',
+            'updated_at'
+        ]
+
+class PathStepSerializer(serializers.ModelSerializer):
+    learning_path = serializers.PrimaryKeyRelatedField(read_only=True)
+    knowledge_unit = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = PathStep
+        fields = [
+            'id',
+            'learning_path',
+            'knowledge_unit',
+            'order',
+            'created_at',
+            'updated_at'
+        ]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\urls.py ---
+# apps/konnected/paths/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from konnected.paths.views import LearningPathViewSet, PathStepViewSet
+
+router = DefaultRouter()
+router.register(r'learning_paths', LearningPathViewSet)
+router.register(r'path_steps', PathStepViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\paths\views.py ---
+# apps/konnected/paths/views.py
+
+from rest_framework import viewsets, permissions
+from konnected.paths.models import LearningPath, PathStep
+from konnected.paths.serializers import LearningPathSerializer, PathStepSerializer
+
+class LearningPathViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer la création et la modification des parcours d'apprentissage.
+    """
+    queryset = LearningPath.objects.all()
+    serializer_class = LearningPathSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class PathStepViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les étapes individuelles d'un parcours d'apprentissage.
+    """
+    queryset = PathStep.objects.all()
+    serializer_class = PathStepSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\admin.py ---
+# apps/konnected/team/admin.py
+
+from django.contrib import admin
+from konnected.team.models import Team, TeamInvitation
+
+class TeamInvitationInline(admin.TabularInline):
+    model = TeamInvitation
+    extra = 0
+    fields = ('invited_user', 'status', 'created_at')
+
+@admin.register(Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('name', 'member_count', 'created_at')
+    search_fields = ('name', 'description')
+    ordering = ('name',)
+    inlines = [TeamInvitationInline]
+
+    def member_count(self, obj):
+        return obj.members.count()
+    member_count.short_description = "Nombre de membres"
+
+@admin.register(TeamInvitation)
+class TeamInvitationAdmin(admin.ModelAdmin):
+    list_display = ('team', 'invited_user', 'status', 'created_at')
+    list_filter = ('status',)
+    search_fields = ('team__name', 'invited_user__username')
+    ordering = ('-created_at',)
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\apps.py ---
+from django.apps import AppConfig
+
+class KonnectedTeamConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'konnected.team'
+    verbose_name = "Konnected Team"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\forms.py ---
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\models.py ---
+"""
+File: apps/konnected/team/models.py
+
+This module facilitates team creation and management for educational projects.
+It includes models for teams and team invitations.
+"""
+
+from django.db import models
+from common.base_models import BaseModel
+
+class Team(BaseModel):
+    """
+    Represents an educational team.
+    """
+    name = models.CharField(max_length=255, help_text="Name of the team.")
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Description of the team."
+    )
+    members = models.ManyToManyField(
+        "core.CustomUser",
+        related_name="teams",
+        help_text="Users who are members of this team."
+    )
+
+    def __str__(self):
+        return self.name
+
+class TeamInvitation(BaseModel):
+    """
+    Represents an invitation for a user to join a team.
+    """
+    INVITATION_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+    team = models.ForeignKey(
+        Team,
+        on_delete=models.CASCADE,
+        related_name="invitations",
+        help_text="Team for which the invitation is sent."
+    )
+    invited_user = models.ForeignKey(
+        "core.CustomUser",
+        on_delete=models.CASCADE,
+        related_name="team_invitations",
+        help_text="User who is invited."
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=INVITATION_STATUS_CHOICES,
+        default="pending",
+        help_text="Status of the invitation."
+    )
+    message = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Optional message accompanying the invitation."
+    )
+
+    def __str__(self):
+        return f"Invitation for {self.invited_user} to join {self.team.name} [{self.status}]"
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\serializers.py ---
+from rest_framework import serializers
+from konnected.team.models import Team, TeamInvitation
+
+class TeamSerializer(serializers.ModelSerializer):
+    members = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Team
+        fields = [
+            'id',
+            'name',
+            'description',
+            'members',
+            'created_at',
+            'updated_at'
+        ]
+
+class TeamInvitationSerializer(serializers.ModelSerializer):
+    team = serializers.PrimaryKeyRelatedField(read_only=True)
+    invited_user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = TeamInvitation
+        fields = [
+            'id',
+            'team',
+            'invited_user',
+            'status',
+            'message',
+            'created_at',
+            'updated_at'
+        ]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\urls.py ---
+# apps/konnected/team/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from konnected.team.views import TeamViewSet, TeamInvitationViewSet
+
+router = DefaultRouter()
+router.register(r'teams', TeamViewSet)
+router.register(r'invitations', TeamInvitationViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+================================================================================
+
+# --- Contents of: C:\MonCode\KonnaxionV4\apps\konnected\team\views.py ---
+# apps/konnected/team/views.py
+
+from rest_framework import viewsets, permissions
+from konnected.team.models import Team, TeamInvitation
+from konnected.team.serializers import TeamSerializer, TeamInvitationSerializer
+
+class TeamViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer la création et la gestion des équipes éducatives.
+    """
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class TeamInvitationViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les invitations à rejoindre une équipe.
+    """
+    queryset = TeamInvitation.objects.all()
+    serializer_class = TeamInvitationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+================================================================================

@@ -1,8 +1,8 @@
 # apps/ethikos/home/views.py
 
 from rest_framework import viewsets, permissions
-from apps.ethikos.home.models import DebateTopic, FeaturedDebate, PersonalizedRecommendation
-from apps.ethikos.home.serializers import (
+from ethikos.home.models import DebateTopic, FeaturedDebate, PersonalizedRecommendation
+from ethikos.home.serializers import (
     DebateTopicSerializer,
     FeaturedDebateSerializer,
     PersonalizedRecommendationSerializer

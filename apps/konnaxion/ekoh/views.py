@@ -2,15 +2,15 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.konnaxion.ekoh.models import ExpertiseTag, ReputationProfile, ReputationEvent, WeightedVote
-from apps.konnaxion.ekoh.serializers import (
+from konnaxion.ekoh.models import ExpertiseTag, ReputationProfile, ReputationEvent, WeightedVote
+from konnaxion.ekoh.serializers import (
     ExpertiseTagSerializer,
     ReputationProfileSerializer,
     ReputationEventSerializer,
     WeightedVoteSerializer
 )
 # Exemple : Importer une tâche pour recalculer la réputation
-# from apps.konnaxion.ekoh.tasks import recalculate_reputation
+# from konnaxion.ekoh.tasks import recalculate_reputation
 
 class ExpertiseTagViewSet(viewsets.ModelViewSet):
     """

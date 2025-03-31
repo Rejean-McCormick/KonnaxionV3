@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
-from apps.konnaxion.search.models import SearchIndex, SearchQueryLog
-from apps.konnaxion.search.serializers import SearchIndexSerializer, SearchQueryLogSerializer
+from konnaxion.search.models import SearchIndex, SearchQueryLog
+from konnaxion.search.serializers import SearchIndexSerializer, SearchQueryLogSerializer
 
 class SearchIndexViewSet(viewsets.ModelViewSet):
     """

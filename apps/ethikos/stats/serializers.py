@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.ethikos.stats.models import DebateStatistic, DebateEventLog
+from ethikos.stats.models import DebateStatistic, DebateEventLog
 
 class DebateStatisticSerializer(serializers.ModelSerializer):
     debate_session = serializers.PrimaryKeyRelatedField(read_only=True)

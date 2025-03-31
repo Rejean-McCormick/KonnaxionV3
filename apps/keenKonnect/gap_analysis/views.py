@@ -1,8 +1,8 @@
 # apps/keenkonnect/gap_analysis/views.py
 
 from rest_framework import viewsets, permissions
-from apps.keenkonnect.gap_analysis.models import GapAnalysis
-from apps.keenkonnect.gap_analysis.serializers import GapAnalysisSerializer
+from keenkonnect.gap_analysis.models import GapAnalysis
+from keenkonnect.gap_analysis.serializers import GapAnalysisSerializer
 
 class GapAnalysisViewSet(viewsets.ModelViewSet):
     """

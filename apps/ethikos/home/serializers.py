@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.ethikos.home.models import DebateTopic, FeaturedDebate, PersonalizedRecommendation
+from ethikos.home.models import DebateTopic, FeaturedDebate, PersonalizedRecommendation
 
 class DebateTopicSerializer(serializers.ModelSerializer):
     class Meta:

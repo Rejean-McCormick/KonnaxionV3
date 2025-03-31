@@ -1,5 +1,8 @@
 # ruff: noqa: ERA001, E501
-"""Base settings to build other settings files upon."""
+"""Base settings to build other settings files upon.
+\config\settings\base.py
+
+"""
 
 import os
 import ssl
@@ -89,6 +92,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "common",
     "konnaxion.core",
     "konnaxion.search",
     "konnaxion.ai",
@@ -310,25 +314,31 @@ CELERY_RABBITMQ_BROKER_URL = env("CELERY_RABBITMQ_BROKER_URL", default="amqp://g
 # django-allauth SETTINGS
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_ADAPTER = "konnaxion_project.users.adapters.AccountAdapter"
-ACCOUNT_FORMS = {"signup": "konnaxion_project.users.forms.UserSignupForm"}
-SOCIALACCOUNT_ADAPTER = "konnaxion_project.users.adapters.SocialAccountAdapter"
-SOCIALACCOUNT_FORMS = {"signup": "konnaxion_project.users.forms.UserSocialSignupForm"}
+ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
+ACCOUNT_FORMS = {"signup": "users.forms.UserSignupForm"}
+SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_FORMS = {"signup": "users.forms.UserSocialSignupForm"}
 
 # ------------------------------------------------------------------------------
 # django-rest-framework SETTINGS
 # ------------------------------------------------------------------------------
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    # For development only: allow all requests without authentication.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    # If you want to keep authentication classes (they won’t block requests if permission is AllowAny)
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    ],
+    # Optionally, include your schema class if needed:
+    # "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
 
 # ------------------------------------------------------------------------------
 # django-cors-headers SETTINGS

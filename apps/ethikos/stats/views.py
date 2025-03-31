@@ -1,8 +1,8 @@
 # apps/ethikos/stats/views.py
 
 from rest_framework import viewsets, permissions
-from apps.ethikos.stats.models import DebateStatistic, DebateEventLog
-from apps.ethikos.stast.serializers import DebateStatisticSerializer, DebateEventLogSerializer
+from ethikos.stats.models import DebateStatistic, DebateEventLog
+from ethikos.stats.serializers import DebateStatisticSerializer, DebateEventLogSerializer
 
 class DebateStatisticViewSet(viewsets.ModelViewSet):
     """

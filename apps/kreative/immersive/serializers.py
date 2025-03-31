@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.kreative.immersive.models import ImmersiveExperience
+from kreative.immersive.models import ImmersiveExperience
 
 class ImmersiveExperienceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenkonnect.KnowledgeHub.models import KnowledgeDocument, DocumentRevision
+from keenkonnect.knowledge_hub.models import KnowledgeDocument, DocumentRevision
 
 class KnowledgeDocumentSerializer(serializers.ModelSerializer):
     class Meta:

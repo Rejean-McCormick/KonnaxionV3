@@ -4,8 +4,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.kreative.artworks.models import Exhibition, Artwork
-from apps.kreative.artworks.serializers import ExhibitionSerializer, ArtworkSerializer
+from kreative.artworks.models import Exhibition, Artwork
+from kreative.artworks.serializers import ExhibitionSerializer, ArtworkSerializer
 
 class ExhibitionViewSet(viewsets.ModelViewSet):
     """

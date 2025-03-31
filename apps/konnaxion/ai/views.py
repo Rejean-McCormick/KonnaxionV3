@@ -2,10 +2,10 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.konnaxion.ai.models import AIResult
-from apps/konnaxion.ai.serializers import AIResultSerializer
+from konnaxion.ai.models import AIResult
+from konnaxion.ai.serializers import AIResultSerializer
 # Exemple : Importer la tâche d’analyse IA asynchrone
-# from apps.konnaxion.ai.tasks import generate_ai_result
+# from konnaxion.ai.tasks import generate_ai_result
 
 class AIResultViewSet(viewsets.ModelViewSet):
     """

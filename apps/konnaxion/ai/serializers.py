@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.ai.models import AIResult
+from konnaxion.ai.models import AIResult
 
 class AIResultSerializer(serializers.ModelSerializer):
     class Meta:

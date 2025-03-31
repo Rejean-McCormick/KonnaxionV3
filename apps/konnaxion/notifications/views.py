@@ -2,8 +2,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.konnaxion.notifications.models import Notification
-from apps.konnaxion.notifications.serializers import NotificationSerializer
+from konnaxion.notifications.models import Notification
+from konnaxion.notifications.serializers import NotificationSerializer
 
 class NotificationViewSet(viewsets.ModelViewSet):
     """

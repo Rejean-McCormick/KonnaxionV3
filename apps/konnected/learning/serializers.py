@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.learning.models import Lesson, Quiz, Question, Answer
+from konnected.learning.models import Lesson, Quiz, Question, Answer
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:

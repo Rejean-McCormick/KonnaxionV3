@@ -1,8 +1,8 @@
 # apps/kreative/immersive/views.py
 
 from rest_framework import viewsets, permissions
-from apps.kreative.immersive.models import ImmersiveExperience
-from apps.kreative.immersive.serializers import ImmersiveExperienceSerializer
+from kreative.immersive.models import ImmersiveExperience
+from kreative.immersive.serializers import ImmersiveExperienceSerializer
 
 class ImmersiveExperienceViewSet(viewsets.ModelViewSet):
     """

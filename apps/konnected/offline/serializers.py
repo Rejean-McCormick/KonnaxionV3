@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.offline.models import OfflineContentPackage
+from konnected.offline.models import OfflineContentPackage
 
 class OfflineContentPackageSerializer(serializers.ModelSerializer):
     class Meta:

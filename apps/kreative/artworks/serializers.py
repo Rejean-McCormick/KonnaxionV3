@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.kreative.artworks.models import Exhibition, Artwork
+from kreative.artworks.models import Exhibition, Artwork
 
 class ExhibitionSerializer(serializers.ModelSerializer):
     class Meta:

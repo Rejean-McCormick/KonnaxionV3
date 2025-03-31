@@ -26,7 +26,10 @@ MEDIA_URL = "/media/"
 from .base import *  # Import base settings
 
 # Debug Toolbar
-if DEBUG:  # ✅ Only add Debug Toolbar in development mode
+
+import sys
+
+if DEBUG and "test" not in sys.argv:  # ✅ Only add Debug Toolbar in development mode
     INSTALLED_APPS += ["debug_toolbar"]
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
@@ -43,5 +46,7 @@ INTERNAL_IPS += [ip[: ip.rfind(".")] + ".1" for ip in ips]
 
 # Forcer l'affichage de la Debug Toolbar
 DEBUG_TOOLBAR_CONFIG = {
+#    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
     "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    "IS_RUNNING_TESTS": False,
 }

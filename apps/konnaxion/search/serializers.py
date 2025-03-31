@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnaxion.search.models import SearchIndex, SearchQueryLog
+from konnaxion.search.models import SearchIndex, SearchQueryLog
 
 class SearchIndexSerializer(serializers.ModelSerializer):
     class Meta:

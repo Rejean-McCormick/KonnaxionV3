@@ -1,8 +1,8 @@
 # apps/konnected/konnectedcommunity/views.py
 
 from rest_framework import viewsets, permissions
-from apps.konnected.konnectedcommunity.models import DiscussionThread, Comment
-from apps.konnected.konnectedcommunity.serializers import DiscussionThreadSerializer, CommentSerializer
+from konnected.konnectedcommunity.models import DiscussionThread, Comment
+from konnected.konnectedcommunity.serializers import DiscussionThreadSerializer, CommentSerializer
 
 class DiscussionThreadViewSet(viewsets.ModelViewSet):
     """
@@ -22,8 +22,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 # apps/kreative/community/views.py
 
 from rest_framework import viewsets, permissions
-from apps.kreative.kreativecommunity.models import CommunityPost, PostComment
-from apps.kreative.kreativecommunity.serializers import CommunityPostSerializer, PostCommentSerializer
+from kreative.kreativecommunity.models import CommunityPost, PostComment
+from kreative.kreativecommunity.serializers import CommunityPostSerializer, PostCommentSerializer
 
 class CommunityPostViewSet(viewsets.ModelViewSet):
     """

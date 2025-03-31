@@ -4,8 +4,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.keenkonnect.projects.models import Project, Milestone, Task
-from apps.keenkonnect.projects.serializers import (
+from keenkonnect.projects.models import Project, Milestone, Task
+from keenkonnect.projects.serializers import (
     ProjectSerializer,
     MilestoneSerializer,
     TaskSerializer

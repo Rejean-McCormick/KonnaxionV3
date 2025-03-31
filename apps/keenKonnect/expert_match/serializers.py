@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.keenkonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
+from keenkonnect.expert_match.models import ExpertMatchRequest, CandidateProfile, MatchScore
 
 class ExpertMatchRequestSerializer(serializers.ModelSerializer):
     project = serializers.PrimaryKeyRelatedField(read_only=True)

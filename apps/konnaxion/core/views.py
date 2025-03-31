@@ -2,14 +2,14 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.konnaxion.core.models import CustomUser, SystemConfiguration, ConfigurationChangeLog
-from apps.konnaxion.core.serializers import (
+from konnaxion.core.models import CustomUser, SystemConfiguration, ConfigurationChangeLog
+from konnaxion.core.serializers import (
     CustomUserSerializer,
     SystemConfigurationSerializer,
     ConfigurationChangeLogSerializer
 )
 # Exemple : Importer une tâche asynchrone pour consigner les changements de configuration
-# from apps.konnaxion.core.tasks import log_configuration_change
+# from konnaxion.core.tasks import log_configuration_change
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     """

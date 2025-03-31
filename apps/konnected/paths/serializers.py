@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.konnected.paths.models import LearningPath, PathStep
+from konnected.paths.models import LearningPath, PathStep
 
 class LearningPathSerializer(serializers.ModelSerializer):
     class Meta:

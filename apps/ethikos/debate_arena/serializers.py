@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.ethikos.debate_arena.models import DebateSession, Argument, VoteRecord
+from ethikos.debate_arena.models import DebateSession, Argument, VoteRecord
 
 class DebateSessionSerializer(serializers.ModelSerializer):
     class Meta:

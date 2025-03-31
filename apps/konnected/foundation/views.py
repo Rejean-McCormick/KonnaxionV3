@@ -1,8 +1,8 @@
 # apps/konnected/foundation/views.py
 
 from rest_framework import viewsets, permissions
-from apps.konnected.foundation.models import KnowledgeUnit
-from apps.konnected.foundation.serializers import KnowledgeUnitSerializer
+from konnected.foundation.models import KnowledgeUnit
+from konnected.foundation.serializers import KnowledgeUnitSerializer
 
 class KnowledgeUnitViewSet(viewsets.ModelViewSet):
     """

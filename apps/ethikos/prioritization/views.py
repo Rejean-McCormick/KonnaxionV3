@@ -1,8 +1,8 @@
 # apps/ethikos/prioritization/views.py
 
 from rest_framework import viewsets, permissions
-from apps.ethikos.prioritization.models import DebatePrioritization
-from apps.ethikos.prioritization.serializers import DebatePrioritizationSerializer
+from ethikos.prioritization.models import DebatePrioritization
+from ethikos.prioritization.serializers import DebatePrioritizationSerializer
 
 class DebatePrioritizationViewSet(viewsets.ModelViewSet):
     """
